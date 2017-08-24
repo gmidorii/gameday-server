@@ -1,11 +1,23 @@
 package main
 
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+const port = "8080"
+
 func main() {
+	http.HandleFunc("/ping", pingHandler)
 
-	http.HandleFunc("/", errorHandler)
-
-	err := http.ListenAndServe(":8080", nil)
+	log.Printf("start game server port: %s", port)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
+}
+
+func pingHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
 }
