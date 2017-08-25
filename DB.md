@@ -1,5 +1,11 @@
 # DB Info
 
+## DB
+animal
+```sql
+CREATE DATABASE `animal`;
+```
+
 ## Table
 - t_animal
 
@@ -12,8 +18,9 @@
 
 ```sql
 CREATE TABLE `t_animal` (
-  `id` int AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(id)
 );
 ```
