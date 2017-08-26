@@ -15,13 +15,27 @@ const (
 	cfgFile = "./config.toml"
 )
 
+var cfg Config
+
+// Config is setting for this web server
+// `config.toml` struct
 type Config struct {
-	DbCfg DB
+	Animal Animal
 }
 
-type DB struct {
+// Animal is setting for animal db
+type Animal struct {
 	User     string
 	Password string
+	Host     string
+}
+
+func init() {
+	_, err := toml.DecodeFile(cfgFile, &cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("success loading config file: %s", cfgFile)
 }
 
 func main() {
@@ -40,9 +54,8 @@ func pingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func animalHandler(w http.ResponseWriter, r *http.Request) {
-	var cfg Config
-	toml.DecodeFile(cfgFile, &cfg)
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@localhost/animal", cfg.DbCfg.User, cfg.DbCfg.Password))
+	db, err := sql.Open("mysql",
+		fmt.Sprintf("%s:%s@%s/animal", cfg.Animal.User, cfg.Animal.Password, cfg.Animal.Host))
 	if err != nil {
 		log.Fatal(err)
 	}
