@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -20,11 +19,11 @@ var cfg Config
 // Config is setting for this web server
 // `config.toml` struct
 type Config struct {
-	Animal Animal
+	Animal AnimalCfg
 }
 
-// Animal is setting for animal db
-type Animal struct {
+// AnimalCfg is setting for animal db
+type AnimalCfg struct {
 	User     string
 	Password string
 	Host     string
@@ -51,13 +50,4 @@ func main() {
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("OK"))
-}
-
-func animalHandler(w http.ResponseWriter, r *http.Request) {
-	db, err := sql.Open("mysql",
-		fmt.Sprintf("%s:%s@%s/animal", cfg.Animal.User, cfg.Animal.Password, cfg.Animal.Host))
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 }
