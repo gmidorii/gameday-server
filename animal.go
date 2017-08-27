@@ -15,6 +15,16 @@ type Animal struct {
 }
 
 func animalHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET", "":
+		animalGET(w, r)
+	case "POST":
+		animalPOST(w, r)
+	}
+}
+
+func animalGET(w http.ResponseWriter, r *http.Request) {
+	fID := r.URL.Query().Get("id")
 	db, err := sql.Open("mysql",
 		fmt.Sprintf("%s:%s@tcp(%s:3306)/animal", cfg.Animal.User, cfg.Animal.Password, cfg.Animal.Host))
 	if err != nil {
@@ -22,7 +32,11 @@ func animalHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT id, name FROM t_animal")
+	sql := "SELECT id, name FROM t_animal"
+	if fID != "" {
+		sql = fmt.Sprintf("%s WHERE id=%s", sql, fID)
+	}
+	rows, err := db.Query(sql)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -48,4 +62,8 @@ func animalHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonAnimal)
+}
+
+func animalPOST(w http.ResponseWriter, r *http.Request) {
+
 }
