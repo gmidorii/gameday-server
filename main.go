@@ -37,7 +37,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("success loading config file: %s", cfgFile)
+	log.Printf("success loading config file: %s", *fCfg)
 
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/animal", animalHandler)
