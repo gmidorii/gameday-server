@@ -11,8 +11,7 @@ import (
 )
 
 const (
-	port    = "8080"
-	cfgFile = "./config.toml"
+	port = "8080"
 )
 
 var cfg Config
