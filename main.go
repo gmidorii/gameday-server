@@ -19,7 +19,8 @@ var cfg Config
 // Config is setting for this web server
 // `config.toml` struct
 type Config struct {
-	Animal AnimalCfg
+	Animal      AnimalCfg
+	OuternalURL string `toml:"outernalurl"`
 }
 
 // AnimalCfg is setting for animal db
@@ -40,6 +41,7 @@ func init() {
 func main() {
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/animal", animalHandler)
+	http.HandleFunc("/outernal", outernalHandler)
 
 	log.Printf("start game server port: %s", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
@@ -49,5 +51,6 @@ func main() {
 }
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("%s /ping\n", r.Method)
 	w.Write([]byte("OK"))
 }

@@ -29,6 +29,7 @@ func animalHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func animalGET(w http.ResponseWriter, r *http.Request) {
+	log.Printf("%s /animal\n", r.Method)
 	fID := r.URL.Query().Get("id")
 
 	animals, err := selectAnimals(fID)
@@ -45,6 +46,7 @@ func animalGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func animalPOST(w http.ResponseWriter, r *http.Request) {
+	log.Printf("%s /animal\n", r.Method)
 	fName := r.FormValue("name")
 	if fName == "" {
 		w.WriteHeader(http.StatusBadRequest)

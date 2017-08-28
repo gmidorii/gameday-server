@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <title>Animals</title>
+  </head>
+  <body>
+    <h1>Animals</h1>
+    <h2>一覧</h2>
+    <table id="animal-table">
+      <thead>
+        <tr>
+        <th>id</th>
+        <th>animal</th>
+        </tr>
+      </thead>
+      {{range .Animals}}
+      <tbody>
+        <tr>
+        <td>{{ .ID }}</td>
+        <td>{{ .Name }}</td>
+        </tr>
+      {{ end }}
+      </tbody>
+  </table>
+  <h2>登録</h2>
+  <form id="contact" action="/animal" method="post">
+    <fieldset>
+      <input name="name" placeholder="動物を新しく登録" type="text" required autofocus>
+    </fieldset>
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+    </fieldset>
+  </form>
+  </body>
+</html>
