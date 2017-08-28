@@ -1,6 +1,13 @@
 # gameday-server
 
-## All API
-- /ping - health check
-- /     - outernal connect api
-- /     - db connect api
+### build
+```
+
+```
+
+### All API
+| path      | content          |
+|-----------|------------------|
+| /ping     | health check     |
+| /outernal | outernal connect |
+| /animal   | animal db info   |

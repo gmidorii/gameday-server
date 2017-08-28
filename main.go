@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -30,22 +31,21 @@ type AnimalCfg struct {
 	Host     string
 }
 
-func init() {
-	_, err := toml.DecodeFile(cfgFile, &cfg)
+func main() {
+	fCfg := flag.String("c", "./config.toml", "config file type `toml`")
+	flag.Parse()
+	_, err := toml.DecodeFile(*fCfg, &cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("success loading config file: %s", cfgFile)
-}
 
-func main() {
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/animal", animalHandler)
 	http.HandleFunc("/outernal", outernalHandler)
 
 	log.Printf("start game server port: %s", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
-	if err != nil {
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil); err != nil {
 		log.Fatal(err)
 	}
 }
