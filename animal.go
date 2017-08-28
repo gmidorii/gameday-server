@@ -38,9 +38,7 @@ func animalGET(w http.ResponseWriter, r *http.Request) {
 	}
 	rows, err := db.Query(sql)
 	if err != nil {
-		log.Print(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed"))
+		failed(err, w)
 		return
 	}
 	defer rows.Close()
@@ -55,9 +53,7 @@ func animalGET(w http.ResponseWriter, r *http.Request) {
 
 	jsonAnimal, err := json.Marshal(animals)
 	if err != nil {
-		log.Print(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Failed"))
+		failed(err, w)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -65,5 +61,36 @@ func animalGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func animalPOST(w http.ResponseWriter, r *http.Request) {
+	fName := r.FormValue("name")
+	if fName == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("required `name` parameter"))
+		return
+	}
+	db, err := sql.Open("mysql",
+		fmt.Sprintf("%s:%s@tcp(%s:3306)/animal", cfg.Animal.User, cfg.Animal.Password, cfg.Animal.Host))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
 
+	insertAnimal, err := db.Prepare("INSERT INTO name values(?)")
+	if err != nil {
+		failed(err, w)
+		return
+	}
+
+	tx, err := db.Begin()
+	if err != nil {
+		failed(err, w)
+		return
+	}
+
+	result, err := tx.Stmt(insertAnimal).Exec(fName)
+}
+
+func failed(err error, w http.ResponseWriter) {
+	log.Print(err)
+	w.WriteHeader(http.StatusInternalServerError)
+	w.Write([]byte("Failed"))
 }
