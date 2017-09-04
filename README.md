@@ -10,6 +10,11 @@ Usage of ./gameday-server:
         config file type toml (default "./config.toml")
 ```
 
+### run
+```
+% ./gameday-server -c config.toml
+```
+
 ### Config
 config file type is `toml`  
 
