@@ -1,0 +1,25 @@
+
+.main {
+    margin : 20px;
+}
+
+.animal-list {
+    margin : 10px;
+}
+
+.registraion {
+    margin: 10px;
+}
+
+.animal-input {
+    margin: 10px;
+}
+
+.animal-submit { 
+    margin: 10px;
+}
+
+#result-message {
+    margin : 30px;
+    color :red;
+}

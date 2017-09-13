@@ -1,35 +1,69 @@
 <!DOCTYPE HTML>
-<html>
-  <head>
-  <title>Animals</title>
-  </head>
-  <body>
-    <h1>Animals</h1>
-    <h2>一覧</h2>
-    <table id="animal-table">
-      <thead>
-        <tr>
-        <th>id</th>
-        <th>animal</th>
-        </tr>
-      </thead>
-      {{range .Animals}}
-      <tbody>
-        <tr>
-        <td>{{ .ID }}</td>
-        <td>{{ .Name }}</td>
-        </tr>
-      {{ end }}
-      </tbody>
-  </table>
-  <h2>登録</h2>
-  <form id="register-animal" action="/animal" method="post">
-    <fieldset>
-      <input name="name" placeholder="動物を新しく登録" type="text" required autofocus>
-    </fieldset>
-    <fieldset>
-      <button name="submit" type="submit" id="register-submit" data-submit="...Sending">Submit</button>
-    </fieldset>
-  </form>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="./staticfile/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./staticfile/css/main.css" rel="stylesheet">
+  <title>/animal</title>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="gnavi" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="./animal">/animal</a></li>
+        <li><a href="./outernal">/outernal</a></li>
+        <li><a href="./ping">/ping</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="main">
+    <h1>/animal</h1>
+    <div class="animal-list">
+      <h2>一覧</h2>
+      <table id="animal-table" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>animal</th>
+          </tr>
+        </thead>
+        {{range .Animals}}
+        <tbody>
+          <tr>
+            <td>{{ .ID }}</td>
+            <td>{{ .Name }}</td>
+          </tr>
+        {{ end }}
+        </tbody>
+      </table>
+    </div>
+    <div class="registraion">
+      <h2>登録</h2>
+      <div class="form-group">
+        <form id="register-animal" class="form-horizontal" action="/animal" method="post">
+          <fieldset>
+            <div class="control-group">
+              <div class="controls animal-input">
+                <input id="name" class="input-xlarge" placeholder="動物を新しく登録" type="text" required autofocus>
+              </div>
+            </div>
+            <div class="form-actions animal-submit">
+              <button name="submit" type="submit" id="register-submit" data-submit="...Sending" class="btn btn-primary">Submit</button>
+            </div>
+          </fieldset>
+      </form>
+    </div>
+    </div>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="./staticfile/bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>
