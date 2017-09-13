@@ -48,8 +48,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-func pingHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%s /ping\n", r.Method)
-	w.Write([]byte("OK"))
-}
