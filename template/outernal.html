@@ -1,10 +1,34 @@
 <!DOCTYPE HTML>
-<html>
-  <head>
-  <title>Outernal</title>
-  </head>
-  <body>
-    <h1>Outernal</h1>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="http://ntj-handson-gameday.s3-website-ap-northeast-1.amazonaws.com/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://ntj-handson-gameday.s3-website-ap-northeast-1.amazonaws.com/css/main.css" rel="stylesheet">
+  <title>/outernal</title>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="gnavi" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="./animal">/animal</a></li>
+        <li><a href="./outernal">/outernal</a></li>
+        <li><a href="./ping">/ping</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="main">
+    <h1>/outernal</h1>
     <div id="result-message" >{{ .Message }}</div>
-  </body>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://ntj-handson-gameday.s3-website-ap-northeast-1.amazonaws.com/bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>
